@@ -1,0 +1,73 @@
+﻿<div class="modal-content">
+    <form id="the-form" name="the-form" enctype="multipart/form-data">
+        <div class="modal-header">
+            <button type="button" class="close" ng-click="cancel()" aria-label="Zatvori"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" data-ng-show="isAddMode">{{title.addMode}}</h4>
+            <h4 class="modal-title" data-ng-show="!isAddMode">{{title.editMode}}</h4>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-10">
+                            <div class="form-group">
+                                <label for="input1" class="control-label">Naziv:</label>
+                                <input type="text" class="form-control" id="input304" placeholder="Novo sjeme" ng-model="crop.Name">
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="color-selection-sjeme-modal default-crop-color" data-ng-style="{'background-color': selectedColor}" colorpicker ng-model="crop.Color"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="comment">Opis:</label>
+                        <textarea class="form-control" rows="5" id="comment" ng-model="crop.Description"></textarea>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="upload-field">
+                                <img alt="image" data-ng-show="!showCropImage" class="img-circle pull-left" ng-src="{{cropIcon}}">
+                                <img alt="image" data-ng-show="showCropImage" class="img-circle pull-left" ng-src="{{crop.ImageUrl}}">
+                                <div class="media-body pull-left">
+                                    <label class="btn btn-default" id="mylabel" for="file">
+                                        Učitaj sliku
+                                        <input type="file" id="file" name="file" data-ng-model="cropUploadedPicture" onchange="angular.element(this).scope().getPictureFromCloudinary()" />
+                                    </label>
+
+                                    <br>
+                                    <small class="text-muted">Dozvoljene su slike jpg ili png format.</small>
+                                    <p class="remove-image" ng-click="removeImageFromSelectedCrop()" data-ng-show="showCropImage">
+                                        <i class="fa fa-trash-o icon-separted-right"></i>Obriši sliku
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="row add-new-big-wrapper">
+                        <div class="col-md-10 add-new-big" data-ng-click="selectCrop(null,true)">
+                            <i class="fa fa-plus icon-separted-right"></i>Dodaj novo sjeme
+                        </div>
+                    </div>
+                    <div class="sjemena-list">
+                        <div class="sjeme-item" data-ng-repeat="sime in crops" data-ng-class="{'sjeme-item-selected':sime.Id==crop.Id}" data-ng-click="selectCrop(sime,false)" >
+                            <img alt="image" class="img-circle pull-left" data-ng-if="sime.ImageUrl" ng-src="{{sime.ImageUrl}}" />
+                            <div class="img-circle pull-left" data-ng-if="!sime.ImageUrl" data-ng-style="{'background-color' : '{{sime.Color}}', 'width': '50px', 'height': '50px', 'margin-top': '-7px'}"></div>
+                            <div class="media-body pull-left">
+                                <strong>{{sime.Name}}</strong>
+                                <br>
+                                <small class="text-muted">{{sime.Description}}</small>
+                            </div>
+                            <i class="fa fa-times pull-right" data-ng-click="removeCrop(sime)"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" ng-disabled="saveDisabled" ng-click="cancel(false)">Zatvori</button>
+                <button type="submit" class="btn btn-primary save-button" data-ng-click="save(crop)" data-ng-disabled="shouldDisableSaveButton">Spasi izmjene</button>
+            </div>
+        </div>
+    </form>
+</div>

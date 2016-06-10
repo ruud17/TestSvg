@@ -1,0 +1,135 @@
+﻿<div class="modal-content">
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="cancel()" aria-label="Zatvori"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Uređivanje parcele</h4>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-md-6">
+                <svg id="svg-id" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 251.11 321.8">
+                    <polygon class="parcel-modal" data-ng-repeat="p in parcels" ng-points="p.Points" data-ng-style="parcel.Id ===p.Id  && {'fill': parcelColor}" /> <!-- data-ng-class="{'selected-parcel':parcel.Id==selectedParcel.Id}" --> <!--data-ng-style="{'fill' : '{{parcel.Plantings[0].Crop.Color}}'}"-->
+                </svg>
+            </div>
+            <div class="col-md-6 modal-right-height">
+                <div class="form-group">
+                    <label for="input1" class="control-label">Godina: {{season.getFullYear()}}</label>
+                    <!--manure.Name for manure in fertilizers-->
+                    <!--<select class="form-control" data-ng-options="yr for yr in season.years" data-ng-model="year" data-ng-change="selectSeason(year)"></select>-->
+                </div>
+                <div class="form-group">
+                    <label for="input1" class="control-label">ID parcele:</label>
+                    <input type="text" class="form-control" id="input1" placeholder="Unesite Id parcele" data-ng-model="parcel.GruntId">
+                    <p data-ng-show="parcel.GruntId==''" style="color: red">Unesite ID parcele</p>
+                </div>
+                <div class="form-group">
+                    <label for="input3" class="control-label">Vlasnik:</label>
+                    <input type="text" class="form-control" id="input3" placeholder="Unesite ime vlasnika parcele" data-ng-model="parcel.OwnerName">
+                </div>
+                <div class="form-group">
+                    <label for="input8" class="control-label">Naziv:</label>
+                    <input type="text" class="form-control" id="input8" placeholder="Unesite naziv parcele" data-ng-model="parcel.Name">
+                </div>
+                <div class="row">
+                    <div class="form-group col-xs-6">
+                        <label for="input3" class="control-label">Površina:</label>
+                        <input type="text" class="form-control" id="input5" placeholder="Unesite površinu" data-ng-model="parcel.ParcelAreas[0].Quantity">
+                        <p data-ng-show="parcel.ParcelAreas[0].Quantity==''" style="color: red">Unesite površinu parcele</p>
+                    </div>
+                    <div class="form-group col-xs-6">
+                        <label for="input3" class="control-label">Jedinica:</label>
+                        <select class="form-control" data-ng-options="unit.Name for unit in areaMetricUnits" ng-init="parcel.ParcelAreas[0].MetricUnit = initializeExistingParcelAreaMetricUnit()" data-ng-model="parcel.ParcelAreas[0].MetricUnit"></select>
+                    </div>
+                </div>
+                <div class="row" data-ng-repeat="pc in plantingCrops track by $index">
+                    <div class="form-group col-xs-6">
+                        <label class="control-label">Sjeme:</label>
+                        <select class="form-control" data-ng-options="crop.Name for crop in crops" ng-init="pc.Crop = initializeExistingCrop()" data-ng-model="pc.Crop" data-ng-change="selectCrop(pc, pc.Crop)"></select>
+                    </div>
+                    <div class="form-group col-xs-6">
+                        <label class="control-label">Količina u kg:</label>
+                        <input type="text" class="form-control" id="input10" placeholder="Unesite količinu" data-ng-model="pc.Quantity" ng-init="pc.Quantity = initializeExistingCropQuantity()">
+                        <p data-ng-show="pc.Quantity==''" style="color: red">Unesite količinu</p>
+                    </div>
+                    <div>
+                        <input type="hidden" data-ng-model="pc.AmountId" ng-init="pc.AmountId = initializeExistingCropAmountId()" />
+                    </div>
+                </div>
+                <div class="row margin-add-new">
+                    <div class="col-md-12">
+                        <a href="" data-ng-click="openCropsModal()">
+                            <p class="pull-left add-new-link"><i class="fa fa-plus icon-separted-right"></i>Dodaj novo sjeme</p>
+                        </a>
+                    </div>
+                </div>
+                <div class="panel-group">
+                    <uib-accordion class="panel-group">
+                        <uib-accordion-group is-open="fertilizerStatus.open" class="acc-header" ng-init="initializeExistingFertilizers()">
+                            <uib-accordion-heading>
+                                <span data-ng-click="fertilizerStatus.open=!fertilizerStatus.open">Gnojiva</span>
+                                <i class="pull-right glyphicon" ng-class="{'fa fa-caret-up': fertilizerStatus.open, 'fa fa-caret-down': !fertilizerStatus.open}"></i>
+                            </uib-accordion-heading>
+                            <div class="row" data-ng-repeat="pf in plantingFertilizers track by $index">
+                                <div class="form-group col-xs-4">
+                                    <select class="form-control" data-ng-options="fertilizer.Name for fertilizer in fertilizers" data-ng-model="pf.Fertilizer" data-ng-change="selectFertilizer(pf, pf.Fertilizer)"></select>
+                                </div>
+                                <div class="form-group col-xs-3">
+                                    <input type="text" class="form-control" id="input10" placeholder="Količina" data-ng-model="pf.Quantity">
+                                </div>
+                                <div class="form-group col-xs-4 remove-item">
+                                    <select class="form-control" data-ng-options="unit.Name for unit in weightMetricUnits" data-ng-model="pf.MetricUnit" data-ng-change="selectMetricUnit(pf, pf.MetricUnit)"></select>
+                                </div>
+                                <div class="form-group col-xs-1 remove-item" data-ng-click="removeFertilizerOrYield(plantingFertilizers,fer)">
+                                    <i class="fa fa-times"></i>
+                                </div>
+                            </div>
+                            <p data-ng-show="showFertilizerErrorMessage" style="color: red">Unesite sva polja</p>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <p class="pull-left add-new-link" data-ng-click="addAnotherItem(plantingFertilizers, false, false)">
+                                        <i class="fa fa-plus icon-separted-right"></i>Dodaj još jedno gnojivo
+                                    </p>
+                                    <a href="" data-ng-click="openFertilizersModal()">
+                                        <p class="pull-left add-new-link add-new-link-margin-left">
+                                            <i class="fa fa-plus icon-separted-right"></i>Dodaj novi tip
+                                        </p>
+                                    </a>
+                                </div>
+                            </div>
+                        </uib-accordion-group>
+
+                        <uib-accordion-group is-open="incomeStatus.open" class="acc-header" ng-init="initializeExistingYields()">
+                            <uib-accordion-heading>
+                                <span data-ng-click="incomeStatus.open=!incomeStatus.open"> Prinosi</span>
+                                <i class="pull-right glyphicon" ng-class="{'fa fa-caret-up': incomeStatus.open, 'fa fa-caret-down': !incomeStatus.open}"></i>
+                            </uib-accordion-heading>
+                            <div class="row" data-ng-repeat="yld in plantingYields track by $index">
+                                <div class="form-group col-xs-4">
+                                    <input type="text" class="form-control" id="input10" placeholder="Naziv" data-ng-model="yld.Name">
+                                </div>
+                                <div class="form-group col-xs-3">
+                                    <input type="text" class="form-control" id="input103" placeholder="Količina" data-ng-model="yld.Quantity">
+                                </div>
+                                <div class="form-group col-xs-4">
+                                    <select class="form-control" data-ng-options="ywUnit.Name for ywUnit in weightMetricUnits" data-ng-model="yld.MetricUnit" data-ng-change="selectMetricUnit(yld, yld.MetricUnit)"></select>
+                                </div>
+                                <div class="form-group col-xs-1 remove-item" data-ng-click="removeFertilizerOrYield(plantingYields,yield)">
+                                    <i class="fa fa-times"></i>
+                                </div>
+                            </div>
+                            <p data-ng-show="showYieldsErrorMessage" style="color: red">Unesite sva polja</p>
+                            <div class="row">
+                                <div class="col-md-12" data-ng-click="addAnotherItem(plantingYields, true, false)">
+                                    <p class="pull-left add-new-link"><i class="fa fa-plus icon-separted-right"></i>Dodaj novi prinos</p>
+                                </div>
+                            </div>
+                        </uib-accordion-group>
+                    </uib-accordion>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" ng-click="cancel()">Zatvori</button>
+            <button type="button" class="btn btn-primary save-button" ng-click="ok(planting)">Spasi izmjene</button>
+        </div>
+    </div>
+</div>

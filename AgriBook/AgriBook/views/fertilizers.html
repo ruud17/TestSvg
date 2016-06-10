@@ -1,0 +1,22 @@
+﻿<div class="container">
+    <a href="#/parcels">Nazad na pregled parcela</a>
+    <br />
+    <br />
+
+    <div class="row">
+        Gnjojiva:
+    </div>
+    <div data-ng-repeat="fertilizer in fertilizers">
+        <div class="row">
+            {{fertilizer.Name}}
+        </div>
+    </div>
+    <br />
+    <div>
+        <label>Dodaj novi tip gnjojiva</label>
+        <div class="row">
+            <input id="inputFertilizerName" data-ng-model="fertilizer.Name" value="Naziv gnjojiva" />
+            <button data-ng-click="save(fertilizer)" class="btn btn-lg btn-success">Spasi</button>
+        </div>
+    </div>
+</div>

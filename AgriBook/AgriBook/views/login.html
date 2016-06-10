@@ -1,0 +1,19 @@
+﻿<div class="login-wrapper">
+    <div class="img-wrapper"><img src="../content/images/laktal-white.png" alt="login-logo"></div>
+    <div class="form-group">
+        <label for="LoginEmail">Email</label>
+        <input type="text" class="form-control" id="LoginEmail" placeholder="Unesite email" data-ng-model="loginData.userName" required autofocus>
+    </div>
+    <div class="form-group">
+        <label for="LoginPassword">Šifra</label>
+        <input type="password" class="form-control" id="LoginPassword" placeholder="Unesite šifru" data-ng-model="loginData.password">
+    </div>
+    <div class="login-button-wrapper">
+        <div class="login-button" data-ng-click="login()">
+            <div>Prijava</div>
+        </div>
+    </div>
+    <div data-ng-hide="message == ''" class="alert" style="text-align: center; color: red">
+        {{message}}
+    </div>
+</div>

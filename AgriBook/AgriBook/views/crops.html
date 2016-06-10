@@ -1,0 +1,32 @@
+﻿<div class="container">
+    <a href="#/parcels">Nazad na pregled parcela</a>
+    <br />
+    <br />
+
+    <div class="row">
+        Sjemena:
+    </div>
+    <div data-ng-repeat="crop in crops">
+        <div class="row">
+            <div data-ng-style="{'background-color' : '{{crop.Color}}'}" style="display: inline-block; width: 15px; height: 15px;"></div>
+            {{crop.Name}}
+        </div>
+    </div>
+    <br />
+
+    <div>
+        <h3>Dodaj novi tip sjemena</h3>
+        <br />
+        <div class="row">
+            <label>Unesite naziv sjemena </label>
+            <input data-ng-model="crop.Name" value="Naziv sjemena" />
+        </div>
+        <br />
+        <div class="row">
+            <label>Odaberite boju </label>
+            <input colorpicker="hex" data-ng-model="crop.Color" />
+        </div>
+        <br />
+        <button data-ng-click="save(crop)" class="btn btn-lg btn-success">Spasi</button>
+    </div>
+</div>

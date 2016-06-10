@@ -1,0 +1,46 @@
+﻿<div class="modal-content">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Zatvori" data-ng-click="closeModal(false)"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" data-ng-show="isAddMode">{{title.addMode}}</h4>
+        <h4 class="modal-title" data-ng-show="!isAddMode">{{title.editMode}}</h4>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="input310" class="control-label">Naziv:</label>
+                            <input type="text" class="form-control" id="input310" placeholder="Novo sjeme" data-ng-model="currentFertilizer.Name">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="commentGnojivo">Opis:</label>
+                    <textarea class="form-control" rows="5" id="commentGnojivo" data-ng-model="currentFertilizer.Description"></textarea>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="row add-new-big-wrapper">
+                    <div class="col-md-10 add-new-big" data-ng-click="setMode(null,true)">
+                        <i class="fa fa-plus icon-separted-right"></i>Dodaj novo sjeme
+                    </div>
+                </div>
+                <div class="gnojivo-list">
+                    <div class="gnojivo-item" data-ng-repeat="fer in fertilizers" data-ng-class="{'gnojivo-item-selected':fer.Id==currentFertilizer.Id}" data-ng-click="setMode(fer,false)">
+                        <div class="media-body pull-left" >
+                            <strong>{{fer.Name}}</strong>
+                            <br>
+                            <small class="text-muted">{{fer.Description | limitText:65}}</small>
+                        </div>
+                        <i class="fa fa-times pull-right" data-ng-click="removeFertilizer(fer)"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal" data-ng-click="closeModal(false)">Zatvori</button>
+            <button type="button" class="btn btn-primary save-button" data-ng-click="save()" data-ng-disabled="shouldDisableSaveButton">Spasi izmjene</button>
+        </div>
+    </div>
+</div>

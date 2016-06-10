@@ -1,0 +1,72 @@
+﻿<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]> <html class="lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]> <html class="lt-ie9" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html ng-app="app">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Laktal Stipanjići</title>
+
+        <!-- Load stylesheets -->
+        <link rel="stylesheet" href="content/css/bootstrap.min.css"/>
+        <link rel="stylesheet" href="content/css/style.css">
+        <link rel="stylesheet" href="content/css/colorpicker.css">
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+        <!-- 3rd party libraries -->
+        <script src="app/vendor/angular.js"></script>
+        <script src="app/vendor/angular-route.js"></script>
+        <script src="app/vendor/jquery-1.9.1.js"></script>
+        <script src="app/vendor/angular-local-storage.min.js"></script>
+        <script src="app/vendor/svg-pan-zoom.js"></script>
+        <script src="app/vendor/angular-ui/ui-bootstrap-tpls.js"></script>
+        <script src="app/vendor/bootstrap-colorpicker-module.min.js"></script>
+        <script src="app/vendor/bootstrap.min.js"></script>
+        <script src="app/vendor/underscore.min.js"></script>
+        
+        <!-- Load app main script -->
+        <script src="app/app.js"></script>
+
+        <!-- Load additional scripts -->
+        <script src="app/config/config.js"></script>
+        <script src="app/helpers/parcelsDrawingHelper.js"></script>
+        <script src="app/helpers/validationHelper.js"></script>
+
+        <!-- Load services -->
+        <script src="app/services/authInterceptorService.js"></script>
+        <script src="app/services/authService.js"></script>
+        <script src="app/services/parcelsService.js"></script>
+        <script src="app/services/cropsService.js"></script>
+        <script src="app/services/fertilizersService.js"></script>
+        <script src="app/services/plantingsService.js"></script>
+        <script src="app/services/commonService.js"></script>
+        <script src="app/services/cloudinaryService.js"></script>
+        <script src="app/services/metricUnitsService.js"></script>
+
+        <!-- Load filters -->
+        <script src="app/filters/descriptionCutFilter.js"></script>
+
+        <!-- Load controllers -->
+        <script src="app/controllers/indexController.js"></script>
+        <script src="app/controllers/homeController.js"></script>
+        <script src="app/controllers/loginController.js"></script>
+        <script src="app/controllers/parcelsController.js"></script>
+        <script src="app/controllers/cropsController.js"></script>
+        <script src="app/controllers/fertilizersController.js"></script>
+        <script src="app/controllers/parcelModalController.js"></script>
+        <script src="app/controllers/cropsModalController.js"></script>
+        <script src="app/controllers/fertilizersModalController.js"></script>
+
+        <!-- include directives -->
+        <script src="app/directives/svgDirectives.js"></script>
+    </head>
+
+    <body>
+        <div data-ng-controller="indexController">
+            <div ng-view=""></div>
+        </div>
+    </body>
+</html>
