@@ -144,14 +144,24 @@ app.controller('parcelsController', ['$scope', 'parcelsService', '$uibModal', '$
         return (item.ParcelIds.length / sum) * 100;
     };
 
-    $scope.searchParcel=function(parcelValue) {
-        _.each($scope.parcels,function(p,ind) {
-            if (p.Id === parcelValue.Id) {
-                $scope.parcels[ind].Color = '#0e0e0e';
-            } else {
-                $scope.parcels[ind].Color = '#00ff70';
-            }
-        })
+    $scope.searchParcel = function (parcelValue) {
+        if (parcelValue !== "") {
+            _.each($scope.parcels, function (p, ind) {
+                if (p.Id.toString() === parcelValue) {
+                    $scope.parcels[ind].shouldMark = true;
+                } else {
+                    $scope.parcels[ind].shouldMark = false;
+                }
+                $scope.shouldSearch = true;
+            });
+        } else {
+            _.each($scope.parcels, function (p, ind) {
+                $scope.parcels[ind].shouldMark = false;
+                $scope.shouldSearch = true;
+            });
+            $scope.shouldSearch = false;
+        }
+
     }
 
     //#region datepicker

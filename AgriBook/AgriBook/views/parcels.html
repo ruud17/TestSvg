@@ -54,7 +54,7 @@
                     </div>
                 </div>
                 <svg id="svg-id" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 251.11 321.8">
-                    <polygon class="cls-1" data-ng-repeat="parcel in parcels" ng-points="parcel.Points" data-ng-style="{'fill' : '{{parcel.Plantings[0].PlantingCrops[0].Crop.Color}}'}" data-ng-click="openParcelModal(parcel)" data-ng-class="{memo:parcel.shouldMark==true, 'cls-1':parcel.shouldMark==undefined}" />
+                    <polygon class="cls-1" data-ng-repeat="parcel in parcels" ng-points="parcel.Points" data-ng-style="!parcel.shouldMark && !shouldSearch && {'fill' : '{{parcel.Plantings[0].PlantingCrops[0].Crop.Color}}'}" data-ng-click="openParcelModal(parcel)" data-ng-class="{'searched-parcels':parcel.shouldMark==true, 'cls-1':parcel.shouldMark==false}" />
                 </svg>
                 <!--<div class="zoom-buttons">
                     <i class="fa fa-minus-circle"></i>

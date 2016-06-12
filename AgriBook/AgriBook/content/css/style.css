@@ -765,6 +765,12 @@ h2 {
     cursor: pointer;
 }
 
+.searched-parcels {
+    fill: black;
+    stroke: #fff;
+    stroke-miterlimit: 10;
+}
+
 .svg-pan-zoom-control {
     cursor: pointer;
     fill: #286F86 !important;
