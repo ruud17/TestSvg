@@ -50,7 +50,7 @@
                         <input type="text" class="form-control" id="input10" placeholder="Unesite količinu" data-ng-model="pc.Quantity" ng-init="pc.Quantity = initializeExistingCropQuantity()">
                     </div>
                     <div>
-                        <input type="hidden" data-ng-model="pc.AmountId" ng-init="pc.AmountId = initializeExistingCropAmountId()"/>
+                        <input type="hidden" data-ng-model="pc.AmountId" ng-init="pc.AmountId = initializeExistingCropAmountId()" />
                     </div>
                 </div>
                 <p data-ng-show="showCropErrorMessage" style="color: red">Odaberite sjeme</p>
@@ -76,7 +76,7 @@
                                     <input type="text" class="form-control" id="input10" placeholder="Količina" data-ng-model="pf.Quantity">
                                 </div>
                                 <div class="form-group col-xs-4 remove-item">
-                                    <select class="form-control" data-ng-options="unit.Name for unit in weightMetricUnits" data-ng-model="pf.MetricUnit" data-ng-change="selectMetricUnit(pf, pf.MetricUnit)"></select>
+                                    <select class="form-control" data-ng-options="unit.Name for unit in weightMetricUnits | cutLastItem" data-ng-model="pf.MetricUnit" data-ng-change="selectMetricUnit(pf, pf.MetricUnit)"></select>
                                 </div>
                                 <div class="form-group col-xs-1 remove-item" data-ng-click="removeFertilizerOrYield(plantingFertilizers,fer)">
                                     <i class="fa fa-times"></i>

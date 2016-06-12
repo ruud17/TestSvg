@@ -101,6 +101,7 @@
     <Content Include="app\controllers\fertilizersController.js" />
     <Content Include="app\controllers\cropsController.js" />
     <Content Include="app\directives\svgDirectives.js" />
+    <Content Include="app\filters\weightUnits.js" />
     <Content Include="app\filters\descriptionCutFilter.js" />
     <Content Include="app\helpers\parcelsDrawingHelper.js" />
     <Content Include="app\helpers\validationHelper.js" />

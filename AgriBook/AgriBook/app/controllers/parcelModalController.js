@@ -278,7 +278,7 @@ app.controller('parcelModalController', ['$scope', 'getSeason', 'getParcels', 'g
         $scope.showFertilizerErrorMessage = false;
         if (fertilizers != undefined) {
             _.each(fertilizers, function (fer) {
-                if (fer.Fertilizer == undefined || fer.Fertilizer == null || fer.Quantity === "" || fer.Quantity === 0 || fer.MetricUnit.Amounts == undefined) {
+                if (fer.Fertilizer == undefined || fer.Fertilizer == null || fer.Quantity === "" || fer.MetricUnit.Id == undefined) {
                     $scope.showFertilizerErrorMessage = true;
                 }
             });
@@ -297,7 +297,7 @@ app.controller('parcelModalController', ['$scope', 'getSeason', 'getParcels', 'g
     function formAmountsValidity(amounts) {
         $scope.showYieldsErrorMessage = false;
         _.each(amounts, function (fer) {
-            if (fer.Name === "" || fer.Quantity === "" || fer.Quantity === 0 || fer.MetricUnit.Amounts == undefined) {
+            if (fer.Name === "" || fer.Quantity === "" || fer.MetricUnit.Id == undefined) {
                 $scope.showYieldsErrorMessage = true;
             }
         });
