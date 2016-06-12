@@ -12,6 +12,7 @@ app.controller('parcelModalController', ['$scope', 'getSeason', 'getParcels', 'g
     $scope.areaMetricUnits = getAreaMetricUnits;
     $scope.fertilizerStatus = $scope.fertilizerStatus || { open: false };
     $scope.incomeStatus = $scope.incomeStatus || { open: false };
+    $scope.pc = {};
 
     /*  
     *   Putting validationHelper inside the $scope 
@@ -157,7 +158,7 @@ app.controller('parcelModalController', ['$scope', 'getSeason', 'getParcels', 'g
     };
 
     $scope.save = function (planting) {
-        if (!formFertilizersValidity($scope.plantingFertilizers) && !formAmountsValidity($scope.plantingYields) && $scope.parcel.GruntId !== "") {
+        if (!formFertilizersValidity($scope.plantingFertilizers) && !formAmountsValidity($scope.plantingYields) && !formCropValidity($scope.plantingCrops[0].Crop) && $scope.parcel.GruntId !== "") {
             if ($scope.parcel.Plantings && $scope.parcel.Plantings.length > 0 && $scope.parcel.Plantings[0].Id) {
                 planting.Id = $scope.parcel.Plantings[0].Id;
             }
@@ -187,13 +188,13 @@ app.controller('parcelModalController', ['$scope', 'getSeason', 'getParcels', 'g
                     }
                 });
             }
+            $uibModalInstance.close();
+            $rootScope.$broadcast('updateParcels');
         };
     };
 
     $scope.ok = function (planting) {
         $scope.save(planting);
-        $uibModalInstance.close();
-        $rootScope.$broadcast('updateParcels');
     };
 
     $scope.cancel = function () {
@@ -283,6 +284,14 @@ app.controller('parcelModalController', ['$scope', 'getSeason', 'getParcels', 'g
             });
         }
         return $scope.showFertilizerErrorMessage;
+    }
+
+    function formCropValidity(crop) {
+        $scope.showCropErrorMessage = false;
+        if (crop === null) {
+            $scope.showCropErrorMessage = true;
+        }
+        return $scope.showCropErrorMessage;
     }
 
     function formAmountsValidity(amounts) {
