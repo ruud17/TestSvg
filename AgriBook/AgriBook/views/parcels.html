@@ -27,8 +27,18 @@
         <div class="col-md-2">
             <div class="search-main">
                 <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Pretraga..." data-ng-model="searchParcelValue">
-                    <span class="input-group-btn"><button class="btn btn-secondary" type="button" data-ng-click="searchParcel(searchParcelValue)">Traži</button></span>
+                    <input type="text" class="form-control" placeholder="Pretraga..." data-ng-model="searchParcelValue" style="width: 100%;">
+                    <!--<span class="input-group-btn"><button class="btn btn-secondary" type="button" data-ng-click="searchParcel(searchParcelValue)">Traži</button></span>-->
+                    <div class="input-group-btn">
+                        <button type="button" style="margin-right: 50px;" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Traži <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" style="min-width: 50px;">
+                            <li data-ng-click="searchParcel(searchParcelValue)"><a>Id</a></li>
+                            <li><a>Nazivu</a></li>
+                            <li><a>Sjemenu</a></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
