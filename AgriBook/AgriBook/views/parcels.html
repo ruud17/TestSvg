@@ -30,13 +30,16 @@
                     <input type="text" class="form-control" placeholder="Pretraga..." data-ng-model="searchParcelValue" style="width: 100%;">
                     <!--<span class="input-group-btn"><button class="btn btn-secondary" type="button" data-ng-click="searchParcel(searchParcelValue)">Traži</button></span>-->
                     <div class="input-group-btn">
-                        <button type="button" style="margin-right: 50px;" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Traži <span class="caret"></span>
                         </button>
+                        <button type="button" class="btn btn-default" data-ng-click="resetSearch()">
+                            Resetuj
+                        </button>
                         <ul class="dropdown-menu" style="min-width: 50px;">
-                            <li data-ng-click="searchParcel(searchParcelValue)"><a>Id</a></li>
-                            <li><a>Nazivu</a></li>
-                            <li><a>Sjemenu</a></li>
+                            <li data-ng-click="searchById(searchParcelValue)"><a>Id</a></li>
+                            <li data-ng-click="searchByName(searchParcelValue)"><a>Nazivu</a></li>
+                            <li data-ng-click="searchByCrop(searchParcelValue)"><a>Sjemenu</a></li>
                         </ul>
                     </div>
                 </div>
@@ -64,7 +67,7 @@
                     </div>
                 </div>
                 <svg id="svg-id" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 251.11 321.8">
-                    <polygon class="cls-1" data-ng-repeat="parcel in parcels" ng-points="parcel.Points" data-ng-style="!parcel.shouldMark && !shouldSearch && {'fill' : '{{parcel.Plantings[0].PlantingCrops[0].Crop.Color}}'}" data-ng-click="openParcelModal(parcel)" data-ng-class="{'searched-parcels':parcel.shouldMark==true, 'cls-1':parcel.shouldMark==false}" />
+                    <polygon data-ng-repeat="parcel in parcels" ng-points="parcel.Points" data-ng-style="!parcel.shouldMark && !shouldSearch && {'fill' : '{{parcel.Plantings[0].PlantingCrops[0].Crop.Color}}'}" data-ng-click="openParcelModal(parcel)" data-ng-class="{'searched-parcels':parcel.shouldMark==true, 'cls-1':parcel.shouldMark==false}" />
                 </svg>
                 <!--<div class="zoom-buttons">
                     <i class="fa fa-minus-circle"></i>

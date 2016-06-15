@@ -23,11 +23,13 @@ app.controller('parcelsController', ['$scope', 'parcelsService', '$uibModal', '$
     $scope.weightMetricUnits = $scope.weightMetricUnits || {};
     $scope.areaMetricUnits = $scope.areaMetricUnits || {};
     $scope.currentTab = 1;
+    $scope.shouldSearch = false;
 
     $scope.getAll = function (season) {
         parcelsService.getAll(season, function (data) {
             if (data) {
                 $scope.parcels = data;
+                $scope.resetSearch();
             } else {
                 console.error(messages.BOS.ERROR_LOADING_PARCELS);
             }
@@ -144,10 +146,10 @@ app.controller('parcelsController', ['$scope', 'parcelsService', '$uibModal', '$
         return (item.ParcelIds.length / sum) * 100;
     };
 
-    $scope.searchParcel = function (parcelValue) {
+    $scope.searchById = function (parcelValue) {
         if (parcelValue !== "") {
             _.each($scope.parcels, function (p, ind) {
-                if (p.Id.toString() === parcelValue) {
+                if (p.GruntId.toLowerCase() === parcelValue.toLowerCase()) {
                     $scope.parcels[ind].shouldMark = true;
                 } else {
                     $scope.parcels[ind].shouldMark = false;
@@ -157,12 +159,58 @@ app.controller('parcelsController', ['$scope', 'parcelsService', '$uibModal', '$
         } else {
             _.each($scope.parcels, function (p, ind) {
                 $scope.parcels[ind].shouldMark = false;
-                $scope.shouldSearch = true;
             });
             $scope.shouldSearch = false;
         }
-
     }
+
+    $scope.resetSearch = function() {
+        _.each($scope.parcels, function (parcel, i) {
+            $scope.parcels[i].shouldMark = false;
+        });
+        $scope.searchParcelValue = "";
+    };
+
+    $scope.searchByName = function (parcelValue) {
+        if (parcelValue !== "") {
+            _.each($scope.parcels, function (p, ind) {
+                if (p.Name.toLowerCase().indexOf(parcelValue.toLowerCase()) !== -1) {
+                    $scope.parcels[ind].shouldMark = true;
+                } else {
+                    $scope.parcels[ind].shouldMark = false;
+                }
+                $scope.shouldSearch = true;
+            });
+        } else {
+            _.each($scope.parcels, function (p, ind) {
+                $scope.parcels[ind].shouldMark = false;
+            });
+            $scope.shouldSearch = false;
+        }
+    }
+
+    $scope.searchByCrop = function (parcelValue) {
+        if (parcelValue !== "") {
+            _.each($scope.parcels, function (p, ind) {
+                if (p.Plantings.length) {
+                    if (p.Plantings[0].PlantingCrops[0].Crop.Name.toLowerCase() === parcelValue.toLowerCase()) {
+                        $scope.parcels[ind].shouldMark = true;
+                    } else {
+                        $scope.parcels[ind].shouldMark = false;
+                    }
+                } else {
+                    $scope.parcels[ind].shouldMark = false;
+                }
+                $scope.shouldSearch = true;
+            });
+        } else {
+            _.each($scope.parcels, function (p, ind) {
+                $scope.parcels[ind].shouldMark = false;
+            });
+            $scope.shouldSearch = false;
+        }
+    }
+
 
     //#region datepicker
 

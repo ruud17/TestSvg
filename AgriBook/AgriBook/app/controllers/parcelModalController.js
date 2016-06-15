@@ -164,6 +164,7 @@ app.controller('parcelModalController', ['$scope', 'getSeason', 'getParcels', 'g
             }
             delete $scope.planting.Crop;
             delete $scope.parcel.Plantings;
+            delete $scope.parcel.shouldMark;
             planting.Parcel = $scope.parcel;
             planting.PlantingFertilizers = $scope.plantingFertilizers;
             planting.PlantingCrops = initializeCropMetricUnit($scope.plantingCrops);
