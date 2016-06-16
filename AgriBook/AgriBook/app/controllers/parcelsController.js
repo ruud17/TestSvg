@@ -168,6 +168,7 @@ app.controller('parcelsController', ['$scope', 'parcelsService', '$uibModal', '$
         _.each($scope.parcels, function (parcel, i) {
             $scope.parcels[i].shouldMark = false;
         });
+        $scope.shouldSearch = false;
         $scope.searchParcelValue = "";
     };
 
@@ -193,7 +194,7 @@ app.controller('parcelsController', ['$scope', 'parcelsService', '$uibModal', '$
         if (parcelValue !== "") {
             _.each($scope.parcels, function (p, ind) {
                 if (p.Plantings.length) {
-                    if (p.Plantings[0].PlantingCrops[0].Crop.Name.toLowerCase() === parcelValue.toLowerCase()) {
+                    if (p.Plantings[0].PlantingCrops[0].Crop.Name.toLowerCase().indexOf(parcelValue.toLowerCase()) !== -1) {
                         $scope.parcels[ind].shouldMark = true;
                     } else {
                         $scope.parcels[ind].shouldMark = false;
