@@ -92,16 +92,10 @@ app.controller('parcelsController', ['$scope', 'parcelsService', '$uibModal', '$
     };
 
     $scope.openParcelModal = function (parcel) {
-        parcelsService.get(parcel.Id, function (data) {
-            if (data) {
-                $scope.parcel = data;
-                commonService.openParcelModal($scope.selectedSeason, $scope.parcels, $scope.crops, $scope.fertilizers, $scope.weightMetricUnits, $scope.areaMetricUnits, $scope.parcel);
-                $scope.selectedParcel = parcel;
-                parcelsService.setSelectedParcel($scope.selectedParcel);
-            } else {
-                console.error(messages.BOS.ERROR_LOADING_PARCEL);
-            }
-        });
+        $scope.parcel = parcel;
+        commonService.openParcelModal($scope.selectedSeason, $scope.parcels, $scope.crops, $scope.fertilizers, $scope.weightMetricUnits, $scope.areaMetricUnits, $scope.parcel);
+        $scope.selectedParcel = parcel;
+        parcelsService.setSelectedParcel($scope.selectedParcel);
     };
 
     $scope.openCropsModal = function () {
@@ -164,7 +158,7 @@ app.controller('parcelsController', ['$scope', 'parcelsService', '$uibModal', '$
         }
     }
 
-    $scope.resetSearch = function() {
+    $scope.resetSearch = function () {
         _.each($scope.parcels, function (parcel, i) {
             $scope.parcels[i].shouldMark = false;
         });
