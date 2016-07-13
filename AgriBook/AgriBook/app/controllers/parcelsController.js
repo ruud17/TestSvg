@@ -108,7 +108,9 @@ app.controller('parcelsController', ['$scope', 'parcelsService', '$uibModal', '$
 
     function plantingPreview(parcels) {
         var crops = [], foundCrop;
-        var parcelsWithPlantings = _.reject(parcels, function (parcel) { return parcel.Plantings.length === 0; });
+        var parcelsWithPlantings = _.reject(parcels, function (parcel) {
+            return parcel.Plantings.length === 0;
+        });
         _.each(parcelsWithPlantings, function (parcel) {
             var planting = {
                 cropId: parcel.Plantings[0].PlantingCrops[0].Crop.Id,
@@ -262,5 +264,9 @@ app.controller('parcelsController', ['$scope', 'parcelsService', '$uibModal', '$
 
     $scope.$on('fertilizerCurrentTab', function () {
         $scope.currentTab = 1;
+        $timeout(function () {
+            $scope.currentTab = 1;
+            loadFertilizers();
+        }, 500);
     });
 }]);
