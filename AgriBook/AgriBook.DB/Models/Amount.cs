@@ -6,6 +6,6 @@ namespace AgriBook.DB.Models
     {
         public int AmountId { get; set; }
         public decimal Quantity { get; set; }
-        public virtual MetricUnit MetricUnit { get; set; }
+        public MetricUnit MetricUnit { get; set; }
     }
 }

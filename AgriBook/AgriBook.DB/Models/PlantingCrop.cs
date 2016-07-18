@@ -5,7 +5,7 @@ namespace AgriBook.DB.Models
 {
     public class PlantingCrop : Amount
     {
-        public virtual Planting Planting { get; set; }
-        public virtual Crop Crop { get; set; }
+        public Planting Planting { get; set; }
+        public Crop Crop { get; set; }
     }
 }

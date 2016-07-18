@@ -8,12 +8,12 @@ namespace AgriBook.DB.Models
         public int Id { get; set; }
         public DateTime Season { get; set; }
 
-        public virtual Parcel Parcel { get; set; }
+        public Parcel Parcel { get; set; }
 
-        public virtual ICollection<PlantingCrop> PlantingCrops { get; set; }
+        public ICollection<PlantingCrop> PlantingCrops { get; set; }
 
-        public virtual ICollection<PlantingFertilizer> PlantingFertilizers { get; set; }
+        public ICollection<PlantingFertilizer> PlantingFertilizers { get; set; }
 
-        public virtual ICollection<Yield> Yields { get; set; }
+        public ICollection<Yield> Yields { get; set; }
     }
 }

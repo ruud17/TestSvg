@@ -16,6 +16,6 @@ namespace AgriBook.DB.Models
 
         public string Description { get; set; }
 
-        public virtual ICollection<Amount> PlantingFertilizers { get; set; }
+        public ICollection<Amount> PlantingFertilizers { get; set; }
     }
 }

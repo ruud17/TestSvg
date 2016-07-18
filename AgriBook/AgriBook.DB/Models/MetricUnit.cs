@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Runtime.Serialization;
 using Newtonsoft.Json;
 
 namespace AgriBook.DB.Models
@@ -20,6 +21,8 @@ namespace AgriBook.DB.Models
         /// </summary>
         public int Type { get; set; }
 
-        public virtual ICollection<Amount> Amounts { get; set; }
+        [JsonIgnore]
+        [IgnoreDataMember]
+        public ICollection<Amount> Amounts { get; set; }
     }
 }

@@ -21,6 +21,6 @@ namespace AgriBook.DB.Models
 
         public string ImageName { get; set; }
 
-        public virtual ICollection<Amount> PlantingCrops { get; set; }
+        public ICollection<Amount> PlantingCrops { get; set; }
     }
 }

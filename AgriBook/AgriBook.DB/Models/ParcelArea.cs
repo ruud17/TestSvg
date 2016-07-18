@@ -1,7 +1,12 @@
-﻿namespace AgriBook.DB.Models
+﻿using Newtonsoft.Json;
+using System.Runtime.Serialization;
+
+namespace AgriBook.DB.Models
 {
     public class ParcelArea : Amount
     {
-        public virtual Parcel Parcel { get; set; }
+        [JsonIgnore] 
+        [IgnoreDataMember]
+        public Parcel Parcel { get; set; }
     }
 }

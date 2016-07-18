@@ -20,8 +20,8 @@ namespace AgriBook.DB.Models
         [Required]
         public string Points { get; set; }
 
-        public virtual ICollection<ParcelArea> ParcelAreas { get; set; }
+        public ICollection<ParcelArea> ParcelAreas { get; set; }
 
-        public virtual ICollection<Planting> Plantings { get; set; }
+        public ICollection<Planting> Plantings { get; set; }
     }
 }

@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.UI.WebControls;
 using AgriBook.DB.Models;
 
 namespace AgriBook.API.Controllers
@@ -15,22 +17,25 @@ namespace AgriBook.API.Controllers
         [System.Web.Http.HttpGet]
         public IEnumerable<Parcel> GetByYear(int plantingYear)
         {
-            ActionContext.Request.Headers.Add("Access-Control-Allow-Origin", new[] {"*"});
+            ActionContext.Request.Headers.Add("Access-Control-Allow-Origin", new[] { "*" });
 
             List<Parcel> result = null;
 
             if (plantingYear != 0)
             {
                 var dbQuery = from parcel in Context.Parcels
-                              select new
-                              {
-                                  parcel,
-                                  plantings = from planting in parcel.Plantings
-                                              where planting.Season.Year == plantingYear || planting.Season == DateTime.MinValue
-                                              select planting
-                              };
+                                .Include(p => p.Plantings.Select(pl => pl.PlantingCrops))
+                                .Include(p => p.Plantings.Select(pl => pl.PlantingCrops.Select(pc => pc.Crop)))
+                                .Include(p => p.Plantings.Select(pl => pl.PlantingCrops.Select(pc => pc.MetricUnit)))
+                                .Include(p => p.Plantings.Select(pl => pl.PlantingFertilizers))
+                                .Include(p => p.Plantings.Select(pl => pl.PlantingFertilizers.Select(pf => pf.MetricUnit)))
+                                .Include(p => p.Plantings.Select(pl => pl.PlantingFertilizers.Select(pf => pf.Fertilizer)))
+                                .Include(p => p.Plantings.Select(pl => pl.Yields))
+                                .Include(p => p.ParcelAreas.Select(pa => pa.MetricUnit))
+                              select parcel;
 
-                result = dbQuery.AsEnumerable().Select(dbq => dbq.parcel).ToList();
+                result = dbQuery.ToList();
+
                 foreach (var parcel in result)
                 {
                     var tempList = parcel.Plantings.ToList();
@@ -40,7 +45,15 @@ namespace AgriBook.API.Controllers
             }
             else
             {
-                result = Context.Parcels.ToList();
+                result = Context.Parcels
+                    .Include(p => p.Plantings.Select(pl => pl.PlantingCrops))
+                    .Include(p => p.Plantings.Select(pl => pl.PlantingCrops.Select(pc => pc.Crop)))
+                    .Include(p => p.Plantings.Select(pl => pl.PlantingCrops.Select(pc => pc.MetricUnit)))
+                    .Include(p => p.Plantings.Select(pl => pl.PlantingFertilizers))
+                    .Include(p => p.Plantings.Select(pl => pl.PlantingFertilizers.Select(pf => pf.MetricUnit)))
+                    .Include(p => p.Plantings.Select(pl => pl.PlantingFertilizers.Select(pf => pf.Fertilizer)))
+                    .Include(p => p.Plantings.Select(pl => pl.Yields))
+                    .Include(p => p.ParcelAreas.Select(pa => pa.MetricUnit)).ToList();
             }
 
             return result;
@@ -50,7 +63,7 @@ namespace AgriBook.API.Controllers
         [System.Web.Http.HttpGet]
         public Parcel Get(int id, bool includePlantings)
         {
-            return includePlantings ? Context.Parcels.Include("Plantings").Include("ParcelAreas").FirstOrDefault(p => p.Id == id) : Context.Parcels.FirstOrDefault(p => p.Id == id);
+            return includePlantings ? Context.Parcels.Include(p => p.Plantings).Include(p => p.ParcelAreas).FirstOrDefault(p => p.Id == id) : Context.Parcels.FirstOrDefault(p => p.Id == id);
         }
 
         // POST api/<controller>

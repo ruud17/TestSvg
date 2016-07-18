@@ -7,7 +7,8 @@ namespace AgriBook.DB.Models
     {
         public AgriBookContext() : base("Name=DefaultConnection")
         {
-            
+            this.Configuration.LazyLoadingEnabled = false;
+            this.Configuration.ProxyCreationEnabled = false;
         }
         public DbSet<Parcel> Parcels { get; set; }
         public DbSet<Crop> Crops { get; set; }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity.Core.Mapping;
+using System.Data.Entity;
 using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Net;
@@ -16,13 +17,30 @@ namespace AgriBook.API.Controllers
         // GET api/<controller>
         public IEnumerable<Planting> Get()
         {
-            return Context.Plantings.ToList();
+            var dbQuery = from planting in Context.Plantings
+                                .Include(p => p.PlantingCrops.Select(pc => pc.MetricUnit))
+                                .Include(p => p.PlantingCrops.Select(pc => pc.Crop))
+                                .Include(p => p.PlantingFertilizers.Select(pa => pa.MetricUnit))
+                                .Include(p => p.PlantingFertilizers.Select(pa => pa.Fertilizer))
+                                .Include(p => p.Yields)
+                          select planting;
+
+            return dbQuery.ToList();
         }
 
         // GET api/<controller>/5
         public Planting Get(int id)
         {
-            return Context.Plantings.FirstOrDefault(p => p.Id == id);
+            var dbQuery = from planting in Context.Plantings
+                                .Include(p => p.PlantingCrops.Select(pc => pc.MetricUnit))
+                                .Include(p => p.PlantingCrops.Select(pc => pc.Crop))
+                                .Include(p => p.PlantingFertilizers.Select(pa => pa.MetricUnit))
+                                .Include(p => p.PlantingFertilizers.Select(pa => pa.Fertilizer))
+                                .Include(p => p.Yields)
+                                .Where(p => p.Id == id)
+                          select planting;
+
+            return dbQuery.FirstOrDefault();
         }
 
         // POST api/<controller>
@@ -69,7 +87,7 @@ namespace AgriBook.API.Controllers
                     }
                 }
 
-                var tempParcel = Context.Parcels.FirstOrDefault(p => p.Id == planting.Parcel.Id);
+                var tempParcel = Context.Parcels.Include(p => p.ParcelAreas).FirstOrDefault(p => p.Id == planting.Parcel.Id);
 
                 if (tempParcel != null)
                 {
