@@ -6,8 +6,51 @@
     <div class="modal-body">
         <div class="row">
             <div class="col-md-6">
-                <svg id="svg-id" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 251.11 321.8">
-                    <polygon class="parcel-modal" data-ng-repeat="p in parcels" ng-points="p.Points" data-ng-style="parcel.Id ===p.Id  && {'fill': parcelColor}" /> <!-- data-ng-class="{'selected-parcel':parcel.Id==selectedParcel.Id}" --> <!--data-ng-style="{'fill' : '{{parcel.Plantings[0].Crop.Color}}'}"-->
+                <svg id="svg-id" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500.11 298.75" style="margin-top: 120px;">
+                    <defs>
+                        <style>
+                            .cls-1 {
+                                fill: #c7d9e5;
+                                stroke: #fff;
+                                stroke-width: 0.2;
+                            }
+
+                                .cls-1:hover {
+                                    fill: #000;
+                                    stroke: #fff;
+                                    stroke-width: 0.2;
+                                }
+
+
+                            .cls-2 {
+                                font-size: 0.4px;
+                                fill: #fff;
+                                font-family: Myriad Pro;
+                            }
+
+                            @-webkit-keyframes pulsate {
+                                0% {
+                                    fill: #c7d9e5;
+                                }
+
+                                50% {
+                                    fill: rgb(150, 201, 218);
+                                }
+
+                                100% {
+                                    fill: #c7d9e5;
+                                }
+                            }
+
+                            .cls-1:hover {
+                                fill: rgb(150, 201, 218);
+                                cursor: pointer;
+                                -webkit-animation: pulsate 1s ease-out;
+                                -webkit-animation-iteration-count: infinite;
+                            }
+                        </style>
+                    </defs>
+                    <polygon class="parcel-modal" data-ng-repeat="p in parcels" ng-points="p.Points" data-ng-style="parcel.Id ===p.Id  && {'fill': parcelColor}"/> <!-- data-ng-class="{'selected-parcel':parcel.Id==selectedParcel.Id}" --> <!--data-ng-style="{'fill' : '{{parcel.Plantings[0].Crop.Color}}'}"-->
                 </svg>
             </div>
             <div class="col-md-6 modal-right-height">
