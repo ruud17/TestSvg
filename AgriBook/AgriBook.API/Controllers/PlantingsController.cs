@@ -22,6 +22,7 @@ namespace AgriBook.API.Controllers
                                 .Include(p => p.PlantingCrops.Select(pc => pc.Crop))
                                 .Include(p => p.PlantingFertilizers.Select(pa => pa.MetricUnit))
                                 .Include(p => p.PlantingFertilizers.Select(pa => pa.Fertilizer))
+                                .Include(p => p.Yields.Select(py => py.MetricUnit))
                                 .Include(p => p.Yields)
                           select planting;
 
@@ -36,6 +37,7 @@ namespace AgriBook.API.Controllers
                                 .Include(p => p.PlantingCrops.Select(pc => pc.Crop))
                                 .Include(p => p.PlantingFertilizers.Select(pa => pa.MetricUnit))
                                 .Include(p => p.PlantingFertilizers.Select(pa => pa.Fertilizer))
+                                .Include(p => p.Yields.Select(py => py.MetricUnit))
                                 .Include(p => p.Yields)
                                 .Where(p => p.Id == id)
                           select planting;
@@ -130,6 +132,7 @@ namespace AgriBook.API.Controllers
                     .Include(p => p.PlantingFertilizers.Select(pa => pa.MetricUnit))
                     .Include(p => p.PlantingFertilizers.Select(pa => pa.Fertilizer))
                     .Include(p => p.Yields)
+                    .Include(p => p.Yields.Select(py => py.MetricUnit))
                     .Where(p => p.Id == id)
                               select p;
 

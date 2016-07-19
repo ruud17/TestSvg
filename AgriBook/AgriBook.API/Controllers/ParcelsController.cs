@@ -31,6 +31,7 @@ namespace AgriBook.API.Controllers
                                 .Include(p => p.Plantings.Select(pl => pl.PlantingFertilizers.Select(pf => pf.MetricUnit)))
                                 .Include(p => p.Plantings.Select(pl => pl.PlantingFertilizers.Select(pf => pf.Fertilizer)))
                                 .Include(p => p.Plantings.Select(pl => pl.Yields))
+                                .Include(p => p.Plantings.Select(pl => pl.Yields.Select(py => py.MetricUnit)))
                                 .Include(p => p.ParcelAreas.Select(pa => pa.MetricUnit))
                               select parcel;
 

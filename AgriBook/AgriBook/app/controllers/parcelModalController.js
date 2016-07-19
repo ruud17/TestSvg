@@ -22,7 +22,6 @@ app.controller('parcelModalController', ['$scope', 'getSeason', 'getParcels', 'g
     */
     $scope.validationHelper = validationHelper;
 
-    $scope.plantingYields = [];
     $scope.year = $scope.year || {};
     $scope.selectedAreaMetricUnit = $scope.selectedAreaMetricUnit || {};
     $scope.planting = $scope.planting || {};
@@ -33,6 +32,7 @@ app.controller('parcelModalController', ['$scope', 'getSeason', 'getParcels', 'g
     $scope.planting.Yields = $scope.planting.Yields || [];
     $scope.plantingFertilizers = $scope.plantingFertilizers || [];
     $scope.plantingCrops = $scope.plantingCrops || [];
+    $scope.plantingYields = $scope.plantingYields || [];
     $scope.existingCropAmountId = $scope.existingCropAmountId || {};
 
     var loadParcelColor = function () {
@@ -84,8 +84,6 @@ app.controller('parcelModalController', ['$scope', 'getSeason', 'getParcels', 'g
     };
 
     $scope.initializeExistingFertilizers = function () {
-        $scope.fertilizerStatus.open = validationHelper.areAllFertilizersPresent($scope.parcel);
-        if ($scope.fertilizerStatus.open) {
             for (var i = 0; i < $scope.parcel.Plantings[0].PlantingFertilizers.length; i++) {
                 var existingPlantingFertilizer = {
                     AmountId: $scope.parcel.Plantings[0].PlantingFertilizers[i].AmountId,
@@ -95,13 +93,9 @@ app.controller('parcelModalController', ['$scope', 'getSeason', 'getParcels', 'g
                 };
                 $scope.plantingFertilizers.push(existingPlantingFertilizer);
             }
-        }
     };
 
     $scope.initializeExistingYields = function () {
-        $scope.incomeStatus.open = validationHelper.areAllYieldsPresent($scope.parcel);
-
-        if ($scope.incomeStatus.open) {
             for (var i = 0; i < $scope.parcel.Plantings[0].Yields.length; i++) {
                 var existingPlantingYield = {
                     AmountId: $scope.parcel.Plantings[0].Yields[i].AmountId,
@@ -111,7 +105,6 @@ app.controller('parcelModalController', ['$scope', 'getSeason', 'getParcels', 'g
                 };
                 $scope.plantingYields.push(existingPlantingYield);
             }
-        }
     };
 
     $scope.initializeExistingParcelAreaMetricUnit = function () {
