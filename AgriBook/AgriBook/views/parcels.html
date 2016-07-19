@@ -8670,7 +8670,7 @@
             </div>
             <div class="stats-content" data-ng-show="parcelsPreview.length">
                 <div class="stats-item" data-ng-repeat="item in parcelsPreview">
-                    <img alt="image" class="img-circle pull-left" data-ng-src="{{item.ImageUrl}}">
+                    <img class="img-circle pull-left" data-ng-src="{{item.ImageUrl}}" data-ng-style="item.ImageUrl==null && {'background-color': '{{item.Color}}'}">
                     <div class="media-body pull-left">
                         <strong>{{item.Name}}</strong> , pokrivenost parcela: <strong>{{item.ParcelIds.length}}</strong>
                         <br>

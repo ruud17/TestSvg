@@ -116,8 +116,9 @@ app.controller('parcelsController', ['$scope', 'parcelsService', '$uibModal', '$
                 cropId: parcel.Plantings[0].PlantingCrops[0].Crop.Id,
                 ParcelIds: [parcel.Id],
                 Name: parcel.Plantings[0].PlantingCrops[0].Crop.Name,
-                ImageUrl: parcel.Plantings[0].PlantingCrops[0].Crop.ImageUrl
-            };
+                ImageUrl: parcel.Plantings[0].PlantingCrops[0].Crop.ImageUrl,
+                Color: parcel.Plantings[0].PlantingCrops[0].Crop.Color
+        };
 
             foundCrop = _.findWhere(crops, { cropId: planting.cropId });
             if (typeof foundCrop != 'undefined') {
