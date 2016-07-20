@@ -84,6 +84,7 @@ app.controller('parcelModalController', ['$scope', 'getSeason', 'getParcels', 'g
     };
 
     $scope.initializeExistingFertilizers = function () {
+        if ($scope.parcel.Plantings.length) {
             for (var i = 0; i < $scope.parcel.Plantings[0].PlantingFertilizers.length; i++) {
                 var existingPlantingFertilizer = {
                     AmountId: $scope.parcel.Plantings[0].PlantingFertilizers[i].AmountId,
@@ -93,9 +94,11 @@ app.controller('parcelModalController', ['$scope', 'getSeason', 'getParcels', 'g
                 };
                 $scope.plantingFertilizers.push(existingPlantingFertilizer);
             }
+        }
     };
 
     $scope.initializeExistingYields = function () {
+        if ($scope.parcel.Plantings.length) {
             for (var i = 0; i < $scope.parcel.Plantings[0].Yields.length; i++) {
                 var existingPlantingYield = {
                     AmountId: $scope.parcel.Plantings[0].Yields[i].AmountId,
@@ -105,6 +108,7 @@ app.controller('parcelModalController', ['$scope', 'getSeason', 'getParcels', 'g
                 };
                 $scope.plantingYields.push(existingPlantingYield);
             }
+        }
     };
 
     $scope.initializeExistingParcelAreaMetricUnit = function () {
