@@ -10,9 +10,10 @@ app.controller('parcelsController', ['$scope', 'parcelsService', '$uibModal', '$
             fit: true,
             center: true,
             dblClickZoomEnabled: true,
-            minZoom: 1
+            minZoom: 0.8,
+            maxZoom: 20
         });
-        panZoomInstance.zoom(0.2);
+        panZoomInstance.zoom(0.3);
     }, 500);
 
     $scope.parcels = $scope.parcels || {};
@@ -24,6 +25,9 @@ app.controller('parcelsController', ['$scope', 'parcelsService', '$uibModal', '$
     $scope.areaMetricUnits = $scope.areaMetricUnits || {};
     $scope.currentTab = 1;
     $scope.shouldSearch = false;
+    $scope.modalStatus = {
+        shouldOpenModal: false
+    }
 
     $scope.getAll = function (season) {
         parcelsService.getAll(season, function (data) {
@@ -92,10 +96,12 @@ app.controller('parcelsController', ['$scope', 'parcelsService', '$uibModal', '$
     };
 
     $scope.openParcelModal = function (parcel) {
-        $scope.parcel = parcel;
-        commonService.openParcelModal($scope.selectedSeason, $scope.parcels, $scope.crops, $scope.fertilizers, $scope.weightMetricUnits, $scope.areaMetricUnits, $scope.parcel);
-        $scope.selectedParcel = parcel;
-        parcelsService.setSelectedParcel($scope.selectedParcel);
+      //  if ($scope.modalStatus.shouldOpenModal) {
+                $scope.parcel = parcel;
+                commonService.openParcelModal($scope.selectedSeason, $scope.parcels, $scope.crops, $scope.fertilizers, $scope.weightMetricUnits, $scope.areaMetricUnits, $scope.parcel);
+                $scope.selectedParcel = parcel;
+                parcelsService.setSelectedParcel($scope.selectedParcel);
+        //    }
     };
 
     $scope.openCropsModal = function () {
@@ -118,7 +124,7 @@ app.controller('parcelsController', ['$scope', 'parcelsService', '$uibModal', '$
                 Name: parcel.Plantings[0].PlantingCrops[0].Crop.Name,
                 ImageUrl: parcel.Plantings[0].PlantingCrops[0].Crop.ImageUrl,
                 Color: parcel.Plantings[0].PlantingCrops[0].Crop.Color
-        };
+            };
 
             foundCrop = _.findWhere(crops, { cropId: planting.cropId });
             if (typeof foundCrop != 'undefined') {
