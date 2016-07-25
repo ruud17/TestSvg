@@ -172,7 +172,7 @@
     <Content Include="content\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="content\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="content\fonts\glyphicons-halflings-regular.woff2" />
-    <None Include="Properties\PublishProfiles\laktal-stipanjici.com - Web Deploy %282%29.pubxml" />
+    <None Include="Properties\PublishProfiles\FTP.pubxml" />
     <None Include="Properties\PublishProfiles\laktal-stipanjici.com - Web Deploy.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
